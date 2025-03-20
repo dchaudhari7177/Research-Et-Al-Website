@@ -1,0 +1,20 @@
+/* Logo.css */
+.login-container {
+    position: relative;
+    background-color: #101010;
+    height: 100vh;
+  }
+  
+  .logo-big {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid transparent; /* Add a border to create a blur effect */
+    filter: blur(0.3px);
+  }
+
+  .bg{
+    filter: blur(2px);
+    height: 100vh;
+  }

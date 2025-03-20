@@ -1,0 +1,70 @@
+{
+  "upcomingEvents": [
+    {
+      "id": "tech-conf-2024",
+      "title": "Upcoming Event 1 - Demo",
+      "date": "March 15, 2024",
+      "description": "Demo description for upcoming event 1. Join us!",
+      "fullDescription": "Full demo description for upcoming event 1. This is a demo event.",
+      "schedule": [
+        "09:00 AM - Demo Registration",
+        "10:00 AM - Demo Keynote",
+        "11:30 AM - Demo Sessions",
+        "01:00 PM - Demo Lunch",
+        "02:00 PM - Demo Workshops",
+        "04:30 PM - Demo Networking"
+      ],
+      "venue": "Demo Research Center",
+      "registrationLink": "https://register.example.com/demo-event",
+      "learningPoints": [
+        "Understanding demo methodologies",
+        "Hands-on demo experience",
+        "Networking with demo experts",
+        "Latest demo trends"
+      ],
+      "capacity": "100 seats",
+      "timing": "9:00 AM - 5:00 PM",
+      "pricing": {
+        "regular": 99,
+        "student": 69
+      }
+    },
+    {
+      "id": "ai-symposium-2024",
+      "title": "Upcoming Event 2 - Demo",
+      "date": "April 20, 2024",
+      "description": "Demo description for upcoming event 2. Explore AI!",
+      "fullDescription": "Full demo description for upcoming event 2. AI demo symposium.",
+      "schedule": [
+        "08:30 AM - Demo Check-in",
+        "09:30 AM - Demo Opening",
+        "10:00 AM - Demo AI Keynote",
+        "12:00 PM - Demo Lunch",
+        "02:00 PM - Demo Sessions",
+        "04:00 PM - Demo Panel"
+      ],
+      "venue": "Demo Innovation Center",
+      "registrationLink": "https://register.example.com/demo-ai",
+      "learningPoints": [
+        "Understanding demo AI",
+        "Hands-on demo AI tools",
+        "Networking with demo AI experts",
+        "Future demo AI trends"
+      ],
+      "capacity": "120 seats",
+      "timing": "9:00 AM - 5:00 PM",
+      "pricing": {
+        "regular": 119,
+        "student": 79
+      }
+    }
+  ],
+  "pastEvents": [
+    {
+      "title": "Past Event 1 - Demo",
+      "date": "December 15, 2023",
+      "description": "Demo workshop on ML fundamentals.",
+      "outcome": "100+ Participants"
+    }
+  ]
+}
