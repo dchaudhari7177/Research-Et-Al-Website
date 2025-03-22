@@ -7,6 +7,71 @@ export default function BlogDetail() {
   const navigate = useNavigate();
   const blog = blogsData.blogs.find(b => b.id === blogId);
 
+  const renderSectionContent = (section) => {
+    return (
+      <>
+        {/* Regular content rendering */}
+        {section.content.match(/^\d+\./m) ? (
+          section.content.split(/(?=\d+\.)/).map((point, index) => {
+            if (!point.trim()) return null;
+            
+            const [title, ...description] = point.split('\n');
+            return (
+              <div key={index} className="mb-6">
+                <h4 className="text-lg font-semibold text-indigo-200 mb-2">
+                  {title.trim()}
+                </h4>
+                <p className="text-gray-200">
+                  {description.join('\n').trim()}
+                </p>
+              </div>
+            );
+          })
+        ) : section.content.match(/^[IV]+\./m) ? (
+          section.content.split(/(?=[IV]+\.)/).map((subsection, index) => {
+            if (!subsection.trim()) return null;
+            
+            const [title, ...content] = subsection.split('\n');
+            return (
+              <div key={index} className="mb-8">
+                <h3 className="text-xl font-semibold text-indigo-300 mb-3">
+                  {title.trim()}
+                </h3>
+                <div className="pl-4 border-l-2 border-indigo-500">
+                  {content.join('\n').trim().split('\n\n').map((paragraph, pIndex) => (
+                    <p key={pIndex} className="text-gray-200 mb-4">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          section.content.split('\n\n').map((paragraph, pIndex) => (
+            <p key={pIndex} className="text-lg leading-relaxed text-gray-200 mb-4">
+              {paragraph}
+            </p>
+          ))
+        )}
+
+        {/* Section image if available */}
+        {section.image && (
+          <div className="mt-8">
+            <img 
+              src={section.image.url}
+              alt={section.image.caption}
+              className="w-full h-auto rounded-lg shadow-xl"
+            />
+            <p className="text-sm text-gray-400 mt-2 text-center">
+              {section.image.caption}
+            </p>
+          </div>
+        )}
+      </>
+    );
+  };
+
   if (!blog) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-[#1c0f4a] to-[#3b2f7d] flex items-center justify-center">
@@ -59,8 +124,10 @@ export default function BlogDetail() {
           {/* Main Content */}
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white mb-8">
             <div className="prose prose-invert max-w-none">
+              {/* Summary */}
               <p className="text-xl leading-relaxed mb-8">{blog.summary}</p>
               
+              {/* Introduction */}
               <div className="space-y-6">
                 {blog.content.split('\n\n').map((paragraph, index) => (
                   <p key={index} className="text-lg leading-relaxed text-gray-200">
@@ -83,11 +150,15 @@ export default function BlogDetail() {
                 </div>
               )}
 
-              {/* First half of sections */}
-              {blog.sections?.slice(0, 4).map((section, index) => (
+              {/* All Sections */}
+              {blog.sections?.map((section, index) => (
                 <div key={index} className="mt-12">
-                  <h2 className="text-2xl font-bold mb-4">{section.title}</h2>
-                  <p className="text-lg leading-relaxed text-gray-200">{section.content}</p>
+                  <h2 className="text-2xl font-bold mb-6 text-indigo-300">
+                    {section.title}
+                  </h2>
+                  <div className="space-y-4">
+                    {renderSectionContent(section)}
+                  </div>
                 </div>
               ))}
 
@@ -104,16 +175,40 @@ export default function BlogDetail() {
                   </p>
                 </div>
               )}
-
-              {/* Remaining sections */}
-              {blog.sections?.slice(4).map((section, index) => (
-                <div key={index} className="mt-12">
-                  <h2 className="text-2xl font-bold mb-4">{section.title}</h2>
-                  <p className="text-lg leading-relaxed text-gray-200">{section.content}</p>
-                </div>
-              ))}
             </div>
           </div>
+
+          {/* References Section */}
+          {blog.references && (
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white mb-8">
+              <h3 className="text-2xl font-bold mb-6">References & Citations</h3>
+              <div className="grid gap-4">
+                {blog.references.map((reference, index) => (
+                  <div 
+                    key={index}
+                    className="flex flex-col space-y-1 border-l-4 border-indigo-500 pl-4"
+                  >
+                    <h4 className="font-semibold text-indigo-300">
+                      {reference.title}
+                    </h4>
+                    {reference.description && (
+                      <p className="text-sm text-gray-300">
+                        {reference.description}
+                      </p>
+                    )}
+                    <a 
+                      href={reference.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-400 hover:text-blue-300 transition-colors break-all"
+                    >
+                      {reference.url}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Tags Section */}
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white mb-8">
