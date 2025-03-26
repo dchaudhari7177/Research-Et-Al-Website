@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Navbar from "@/components/home/Navbar";
 import blogsData from '@/data/blogs.json';
 
@@ -6,6 +7,16 @@ export default function BlogDetail() {
   const { blogId } = useParams();
   const navigate = useNavigate();
   const blog = blogsData.blogs.find(b => b.id === blogId);
+
+  useEffect(() => {
+    if (!blog) {
+      navigate('/blogs', { replace: true });
+    }
+  }, [blog, navigate]);
+
+  if (!blog) {
+    return null;
+  }
 
   const renderSectionContent = (section) => {
     return (
@@ -71,22 +82,6 @@ export default function BlogDetail() {
       </>
     );
   };
-
-  if (!blog) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#1c0f4a] to-[#3b2f7d] flex items-center justify-center">
-        <div className="text-white text-center">
-          <h1 className="text-4xl font-bold mb-4">Blog Not Found</h1>
-          <button 
-            onClick={() => navigate('/blogs')}
-            className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors"
-          >
-            Back to Blogs
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#1c0f4a] to-[#3b2f7d]">

@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Navbar from "@/components/home/Navbar";
 import eventsData from '@/data/events.json';
 
@@ -7,20 +8,14 @@ export default function EventDetail() {
   const navigate = useNavigate();
   const event = eventsData.upcomingEvents.find(e => e.id === eventId);
 
+  useEffect(() => {
+    if (!event) {
+      navigate('/events', { replace: true });
+    }
+  }, [event, navigate]);
+
   if (!event) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#1c0f4a] to-[#3b2f7d] flex items-center justify-center">
-        <div className="text-white text-center">
-          <h1 className="text-4xl font-bold mb-4">Event Not Found</h1>
-          <button 
-            onClick={() => navigate('/events')}
-            className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors"
-          >
-            Back to Events
-          </button>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (

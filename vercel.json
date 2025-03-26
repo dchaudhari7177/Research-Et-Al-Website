@@ -1,0 +1,19 @@
+{
+  "routes": [
+    {
+      "src": "/blogs/[0-9]+",
+      "dest": "/blogs/[id]"
+    },
+    {
+      "src": "/events/detail/[0-9]+",
+      "dest": "/events/detail/[id]"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

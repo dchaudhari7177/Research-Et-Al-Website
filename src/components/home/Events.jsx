@@ -1,9 +1,28 @@
-import eventsData from '@/data/events.json';
 import { useNavigate } from 'react-router-dom';
 
 export default function Events() {
   const navigate = useNavigate();
-  const featuredEvents = eventsData.upcomingEvents.slice(0, 3); // Show only 3 events on home page
+  
+  const featuredEvents = [
+    {
+      title: "Lorem Ipsum Event",
+      date: "20 Dec 2023",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: "https://picsum.photos/seed/event1/800/600"
+    },
+    {
+      title: "Dolor Sit Conference",
+      date: "15 Jan 2024",
+      description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      image: "https://picsum.photos/seed/event2/800/600"
+    },
+    {
+      title: "Consectetur Workshop",
+      date: "10 Feb 2024",
+      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      image: "https://picsum.photos/seed/event3/800/600"
+    }
+  ];
 
   return (
     <div className="w-full px-4">

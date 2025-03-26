@@ -15,6 +15,7 @@ export default function App() {
         <Route path="/events/detail/:eventId" element={<EventDetail />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:blogId" element={<BlogDetail />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
