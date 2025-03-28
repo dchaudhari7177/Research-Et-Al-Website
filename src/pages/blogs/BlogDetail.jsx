@@ -93,6 +93,31 @@ export default function BlogDetail() {
       );
     }
     
+    // Handle numbered list sections differently
+    if (section.content.includes('1. Advancements in AI')) {
+      const points = section.content.split(/(?=\d\.\s)/).filter(Boolean);
+      return (
+        <>
+          {points.map((point, index) => {
+            const [title, ...description] = point.split('-');
+            return (
+              <div key={index} className="mb-6">
+                <p className="text-lg text-gray-200">
+                  <span className="font-normal">{title.trim()}</span>
+                  {description.length > 0 && (
+                    <>
+                      {' - '}
+                      <span className="font-normal">{description.join(' ').trim()}</span>
+                    </>
+                  )}
+                </p>
+              </div>
+            );
+          })}
+        </>
+      );
+    }
+
     return (
       <>
         {/* Regular content rendering */}
