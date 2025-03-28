@@ -19,6 +19,80 @@ export default function BlogDetail() {
   }
 
   const renderSectionContent = (section) => {
+    // Regular content rendering for sections with emphasized text
+    if (section.emphasizedText) {
+      return (
+        <>
+          {section.content.split('\n\n').map((paragraph, pIndex) => (
+            <p key={pIndex} className="text-lg leading-relaxed text-gray-200 mb-4">
+              {paragraph}
+            </p>
+          ))}
+          {section.image && (
+            <div className="mt-8">
+              <img 
+                src={section.image.url}
+                alt={section.image.caption}
+                className="w-full h-auto rounded-lg shadow-xl"
+              />
+              <p className="text-sm text-gray-400 mt-2 text-center">
+                {section.image.caption}
+              </p>
+            </div>
+          )}
+        </>
+      );
+    }
+    
+    // Split by Roman numerals if the section is Case Study
+    if (section.title.includes("Case Study")) {
+      const [first, ...rest] = section.content.split(/(?=^I\.\t)/m);
+      return (
+        <>
+          <div className="mb-8">
+            <h2 className="text-lg font-semibold text-indigo-200 mb-2">
+              {first.trim()}
+            </h2>
+            <div className="text-gray-200">
+              {rest.map((content, pIndex) => (
+                <p key={pIndex} className="mb-4 text-lg">
+                  {content}
+                </p>
+              ))}
+            </div>
+          </div>
+        </>
+      );
+    }
+    
+    // Handle sections with Roman numerals differently for Current Ongoing Research
+    if (section.title === "Current Ongoing Research") {
+      return (
+        <>
+          {section.content.map((item, index) => (
+            <div key={index} className="mb-6">
+              <div className="flex gap-4">
+                <span className="text-lg font-semibold text-indigo-300 w-8">{item.number}.</span>
+                <p className="text-lg text-gray-200">{item.text}</p>
+              </div>
+            </div>
+          ))}
+          {section.image && (
+            <div className="mt-8">
+              <img 
+                src={section.image.url}
+                alt={section.image.caption}
+                className="w-full h-auto rounded-lg shadow-xl"
+              />
+              <p className="text-sm text-gray-400 mt-2 text-center">
+                {section.image.caption}
+              </p>
+            </div>
+          )}
+        </>
+      );
+    }
+    
     return (
       <>
         {/* Regular content rendering */}
@@ -45,12 +119,12 @@ export default function BlogDetail() {
             const [title, ...content] = subsection.split('\n');
             return (
               <div key={index} className="mb-8">
-                <h3 className="text-xl font-semibold text-indigo-300 mb-3">
+                <h3 className="text-3xl font-bold text-indigo-300 mb-4">
                   {title.trim()}
                 </h3>
-                <div className="pl-4 border-l-2 border-indigo-500">
+                <div className="text-gray-200">  {/* Removed border-l-2 and pl-4 classes */}
                   {content.join('\n').trim().split('\n\n').map((paragraph, pIndex) => (
-                    <p key={pIndex} className="text-gray-200 mb-4">
+                    <p key={pIndex} className="text-gray-200 mb-4 text-lg">
                       {paragraph}
                     </p>
                   ))}
@@ -120,7 +194,7 @@ export default function BlogDetail() {
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white mb-8">
             <div className="prose prose-invert max-w-none">
               {/* Summary */}
-              <p className="text-xl leading-relaxed mb-8">{blog.summary}</p>
+              <p className="text-xl leading-relaxed mb-8">{}</p>
               
               {/* Introduction */}
               <div className="space-y-6">
@@ -148,7 +222,28 @@ export default function BlogDetail() {
               {/* All Sections */}
               {blog.sections?.map((section, index) => (
                 <div key={index} className="mt-12">
-                  <h2 className="text-2xl font-bold mb-6 text-indigo-300">
+                  {/* Add image before Limitations section */}
+                  {section.title === "Limitations" && (
+                    <div className="mb-12">
+                      <img 
+                        src="https://res.cloudinary.com/dqdrceoqd/image/upload/v1742479871/fourth_vb4fyq.jpg"
+                        alt="AI and Prosthetics Limitations"
+                        className="w-full h-auto rounded-lg shadow-xl"
+                      />
+                      <p className="text-sm text-gray-400 mt-2 text-center">
+                      Figure 4: By mimicking the natural abilities of our skin, a team of researchers at Johns Hopkins University has enabled a prosthesis to perceive and transmit the feeling of pain.
+source: https://assets.rbl.ms/25586053/origin.jpg
+
+                      </p>
+                    </div>
+                  )}
+                  {/* Display emphasized text before section title */}
+                  {section.emphasizedText && (
+                    <p className="text-lg leading-relaxed text-gray-200 mb-4 font-bold italic">
+                      {section.emphasizedText}
+                    </p>
+                  )}
+                  <h2 className={`text-4xl mb-8 text-indigo-300 ${section.isHeadingBold ? 'font-bold' : 'font-normal'}`}>
                     {section.title}
                   </h2>
                   <div className="space-y-4">
