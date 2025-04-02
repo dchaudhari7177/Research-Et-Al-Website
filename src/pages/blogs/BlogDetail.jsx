@@ -23,6 +23,11 @@ export default function BlogDetail() {
     if (section.emphasizedText) {
       return (
         <>
+          {section.subheading && (
+            <h3 className="text-2xl font-semibold text-indigo-200 mb-4">
+              {section.subheading}
+            </h3>
+          )}
           {section.content.split('\n\n').map((paragraph, pIndex) => (
             <p key={pIndex} className="text-lg leading-relaxed text-gray-200 mb-4">
               {paragraph}
